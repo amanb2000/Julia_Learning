@@ -1,0 +1,113 @@
+### A Pluto.jl notebook ###
+# v0.11.14
+
+using Markdown
+using InteractiveUtils
+
+# ╔═╡ 32946b36-05e6-11eb-09af-0bbac575021b
+begin
+	using Images
+	philip = load("philip.jpg") # last line's output is shown.
+								# Julia shows image datastructures as images.
+end
+
+# ╔═╡ e3b9b1d0-05e5-11eb-3bb5-b550890fcf59
+url = "https://i.imgur.com/VGPeJ6s.jpg"; # semicolons work like how they do in Matlab -											 # to mute a statement, you add a semicolon at the end.
+
+# ╔═╡ 01891c74-05e6-11eb-14d1-5b693f42dca7
+download(url, "philip.jpg")
+
+# ╔═╡ 3fa73546-05e7-11eb-3a3f-e32ee3082076
+typeof(philip) # Array{RGBX{Normed{UInt8,8}},2}
+			   # Array *of* RGBX objects. It's a 2-dimensional array.
+
+# ╔═╡ a730128e-05ea-11eb-1cca-b9cf6a281bcb
+begin
+	a = size(philip) # height, width, just like conventional matrices.
+end
+
+# ╔═╡ 104bff6c-05eb-11eb-1893-99b377f19496
+philip[400, 200] # Indexing works like in NumPy
+
+# ╔═╡ 3401252c-05eb-11eb-17b3-cb50ed9de6e9
+head = philip[size(philip,1)÷2:size(philip,1), size(philip,2)÷4:size(philip,2)]
+# You add the ÷ sign by typing '\div' and pressing 'tab'. It functions as integer division operator.
+# Array indexing also starts at 1.
+
+# ╔═╡ 45a16db4-05eb-11eb-0463-c30b5d2062ae
+begin
+	∇f = [3.2, 1, 4.3]
+	println("",∇f[1])
+end
+
+# ╔═╡ 56636b1a-05ec-11eb-04c1-1b5572d68577
+two_head = [head head] # This is how array concatenation works -- just like math.
+
+# ╔═╡ 5bc4bfb2-05ec-11eb-116a-fb506805873a
+[head; head] # This is how array concatenation works -- just like math.
+
+# ╔═╡ 7770c1ea-05ec-11eb-1cd0-0714c6e9c274
+reverse(head, dims=2) # dims starts at 1 then naturally expands up.
+
+# ╔═╡ b1f549f6-05ec-11eb-07f6-8107ff518ca9
+# Copying things: Use the `copy()` command:
+
+new_head = copy(head)
+
+# ╔═╡ c1235230-05ec-11eb-2504-4b58234f123a
+begin
+	redde = RGBX(1, 0, 0)
+	
+	for i in 1:100
+		for j in 1:100
+			new_head[i, j] = redde
+		end
+	end
+end
+
+# ╔═╡ ed232a0e-05ec-11eb-0abd-e39711fe191f
+new_head
+
+# ╔═╡ f0691dcc-05ec-11eb-0e1b-bf2dec94f3ec
+new_head_2 = copy(head);
+
+# ╔═╡ f66a05b0-05ec-11eb-2e89-51dd4646c925
+new_head_2[300:400, 400:500] .= RGB(0, 1, 0); # .= applys this to each individually
+
+# ╔═╡ 106fc850-05ed-11eb-2f17-a5952993bc7a
+new_head_2
+
+# ╔═╡ 1e271138-05ed-11eb-2b98-bda9ff3d8e1d
+function redify(color)
+	return RGB(color.r, 0, 0)
+end
+
+# ╔═╡ 2f15a392-05ed-11eb-1eca-f33925fe39ea
+redify.(philip) # This is how you apply a function to each element within a structure.
+				# It's called 'broadcasting over all pixels'.
+
+# ╔═╡ 758a00ca-05ed-11eb-3a42-870cfd7771b6
+
+decimate(philip, 10)
+
+# ╔═╡ Cell order:
+# ╠═e3b9b1d0-05e5-11eb-3bb5-b550890fcf59
+# ╠═01891c74-05e6-11eb-14d1-5b693f42dca7
+# ╠═32946b36-05e6-11eb-09af-0bbac575021b
+# ╠═3fa73546-05e7-11eb-3a3f-e32ee3082076
+# ╠═a730128e-05ea-11eb-1cca-b9cf6a281bcb
+# ╠═104bff6c-05eb-11eb-1893-99b377f19496
+# ╠═3401252c-05eb-11eb-17b3-cb50ed9de6e9
+# ╠═45a16db4-05eb-11eb-0463-c30b5d2062ae
+# ╠═56636b1a-05ec-11eb-04c1-1b5572d68577
+# ╠═5bc4bfb2-05ec-11eb-116a-fb506805873a
+# ╠═7770c1ea-05ec-11eb-1cd0-0714c6e9c274
+# ╠═b1f549f6-05ec-11eb-07f6-8107ff518ca9
+# ╠═c1235230-05ec-11eb-2504-4b58234f123a
+# ╠═ed232a0e-05ec-11eb-0abd-e39711fe191f
+# ╠═f0691dcc-05ec-11eb-0e1b-bf2dec94f3ec
+# ╠═f66a05b0-05ec-11eb-2e89-51dd4646c925
+# ╠═106fc850-05ed-11eb-2f17-a5952993bc7a
+# ╠═1e271138-05ed-11eb-2b98-bda9ff3d8e1d
+# ╠═2f15a392-05ed-11eb-1eca-f33925fe39ea
+# ╠═758a00ca-05ed-11eb-3a42-870cfd7771b6

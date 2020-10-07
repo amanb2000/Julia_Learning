@@ -1,9 +1,6 @@
 """
 Faces from: http://pics.psych.stir.ac.uk/2D_face_sets.htm
     Folder location: images/
-
-This initial test script performs some computations with the images and shows
-the mean face image (after some re-sizing).
 """
 
 using Images
